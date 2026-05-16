@@ -57,11 +57,39 @@ Build the app:
 npm run build
 ```
 
+Build a local Windows installer and portable app:
+
+```powershell
+npm run dist
+```
+
 Run the built Electron app:
 
 ```powershell
 npm start
 ```
+
+The packaged installer and portable executable are written to `release/`.
+
+## Installing From GitHub
+
+Go to the repository's **Releases** page and download the latest Windows `.exe` installer.
+
+Because this app is not code-signed yet, Windows SmartScreen may show a warning the first time you run it. Choose **More info** and **Run anyway** only if you downloaded it from the official repository release.
+
+## Publishing A Release
+
+This repo includes a GitHub Actions workflow that builds the Windows installer automatically when you push a version tag.
+
+```powershell
+git add .
+git commit -m "Prepare Windows release build"
+git tag v0.1.0
+git push origin main
+git push origin v0.1.0
+```
+
+GitHub Actions will build the app and attach the installer artifacts to the tagged release.
 
 ## Using The App
 
