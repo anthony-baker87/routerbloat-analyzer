@@ -31,8 +31,39 @@ export interface LoadResult {
   bytesTransferred: number;
   durationMs: number;
   speedMbps: number;
+  streamCount: number;
   ping: PingSummary;
   errors: string[];
+}
+
+export interface SpeedPhaseResult {
+  phase: "download" | "upload";
+  bytesTransferred: number;
+  durationMs: number;
+  speedMbps: number;
+  streamCount: number;
+  errors: string[];
+}
+
+export interface SpeedTestResult {
+  download: SpeedPhaseResult;
+  upload: SpeedPhaseResult;
+}
+
+export type LoadProfileName = "Light" | "Medium" | "Heavy";
+
+export interface LoadProfileResult {
+  name: LoadProfileName;
+  description: string;
+  streamCount: number;
+  durationMs: number;
+  download: LoadResult;
+  upload: LoadResult;
+  loadedDownloadPingMs: number | null;
+  loadedUploadPingMs: number | null;
+  latencyIncreaseMs: number | null;
+  grade: BufferbloatGrade;
+  status: StatusLevel;
 }
 
 export interface TestMetrics {
@@ -41,6 +72,8 @@ export interface TestMetrics {
   idleGoogle: PingSummary;
   download: LoadResult;
   upload: LoadResult;
+  speedTest: SpeedTestResult;
+  profiles: LoadProfileResult[];
   idleInternetAverageMs: number | null;
   loadedDownloadPingMs: number | null;
   loadedUploadPingMs: number | null;

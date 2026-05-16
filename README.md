@@ -6,7 +6,9 @@ It runs short latency and load checks, compares idle and loaded ping, detects th
 
 ## Features
 
-- Bufferbloat test with idle, download-loaded, and upload-loaded latency
+- Bufferbloat test with idle, download-loaded, and upload-loaded latency using parallel load streams
+- Light, medium, and heavy load profile grades so results are easier to relate to real use
+- Separate estimated download and upload speed test
 - Packet loss, jitter, max latency, and latency-increase scoring
 - A-F bufferbloat grade
 - Local router and default gateway detection
@@ -155,6 +157,8 @@ scripts/
 ## Safety Notes
 
 Networking commands are executed with `execFile`, not shell string interpolation. User-entered route targets are validated before being passed to `ping`.
+
+The separate download/upload speed numbers use an Ookla-compatible speed test package when available, with a generic HTTPS fallback if that test fails. Bufferbloat profile grades still come from RouterBloat Analyzer's own load-and-ping checks.
 
 This tool is diagnostic, not definitive. Network behavior can vary by time of day, server location, Wi-Fi conditions, ISP congestion, and game-server routing.
 
