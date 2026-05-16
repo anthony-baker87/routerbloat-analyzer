@@ -222,7 +222,6 @@ export default function App() {
   const [progress, setProgress] = useState<TestProgress>({ step: "Ready", percent: 0 });
   const [bridgeError, setBridgeError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
-  const [mock, setMock] = useState(true);
   const [selectedBrand, setSelectedBrand] = useState("Auto detect");
   const [copied, setCopied] = useState(false);
   const metrics = result?.metrics;
@@ -245,7 +244,7 @@ export default function App() {
     setProgress({ step: "Starting", percent: 2 });
     try {
       if (!window.routerBloat) throw new Error("Electron preload bridge is unavailable.");
-      const next = await window.routerBloat.runNetworkTest({ mock, routerBrand: effectiveBrand });
+      const next = await window.routerBloat.runNetworkTest({ routerBrand: effectiveBrand });
       setResult(next);
       setRouter(next.router);
     } catch (error) {
@@ -312,15 +311,6 @@ export default function App() {
           </div>
 
           <div className="mt-5 flex items-center gap-4">
-            <label className="flex items-center gap-2 text-sm text-slate-300">
-              <input
-                type="checkbox"
-                checked={mock}
-                onChange={(event) => setMock(event.target.checked)}
-                className="h-4 w-4 accent-cyan"
-              />
-              Mock mode
-            </label>
             <div className="h-2 flex-1 overflow-hidden rounded-full bg-ink">
               <div className="h-full rounded-full bg-cyan transition-all" style={{ width: `${progress.percent}%` }} />
             </div>

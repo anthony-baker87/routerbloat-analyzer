@@ -6,7 +6,7 @@ declare global {
   interface Window {
     routerBloat?: {
       detectRouter: () => Promise<RouterInfo>;
-      runNetworkTest: (options?: { mock?: boolean; routerBrand?: string }) => Promise<NetworkTestResult>;
+      runNetworkTest: (options?: { routerBrand?: string }) => Promise<NetworkTestResult>;
       runGamingRouteTest: (gameTarget: string) => Promise<GamingRouteResult>;
       onProgress: (callback: (progress: TestProgress) => void) => () => void;
     };

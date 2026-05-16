@@ -44,7 +44,7 @@ app.on("window-all-closed", () => {
 });
 
 ipcMain.handle("router:detect", () => detectRouter());
-ipcMain.handle("network:test", (event, options?: { mock?: boolean; routerBrand?: string }) =>
+ipcMain.handle("network:test", (event, options?: { routerBrand?: string }) =>
   runNetworkTest(options, (progress: TestProgress) => {
     event.sender.send("network:progress", progress);
   })

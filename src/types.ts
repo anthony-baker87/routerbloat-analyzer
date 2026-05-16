@@ -64,7 +64,6 @@ export interface NetworkTestResult {
   diagnosis: Diagnosis;
   recommendations: string[];
   report: string;
-  mock: boolean;
 }
 
 export interface RouteComparisonTarget {

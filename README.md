@@ -14,7 +14,6 @@ It runs short latency and load checks, compares idle and loaded ping, detects th
 - Router-brand-aware recommendations for OpenWrt, ASUS, TP-Link, Netgear, Eero, and generic routers
 - Gaming Route Test for a game server IP or hostname
 - Copyable report with test results, diagnosis, and recommended next steps
-- Mock mode for UI testing without running real network load
 
 ## Screenshots
 
@@ -107,9 +106,7 @@ GitHub Actions will build the app and attach the installer artifacts to the tagg
 
 ## Using The App
 
-For safe testing during development, leave **Mock mode** enabled and click the play button in the Network Test panel.
-
-For real diagnostics, disable **Mock mode** and run the Network Test. The app performs short download and upload load tests, so avoid running it during an active competitive match.
+Click the play button in the Network Test panel to run diagnostics. The app performs short download and upload load tests, so avoid running it during an active competitive match.
 
 For route-specific issues, enter a game server IP or hostname in **Gaming Route Test**. The app compares:
 

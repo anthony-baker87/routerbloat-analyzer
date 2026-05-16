@@ -3,7 +3,7 @@ import { pingTarget } from "./ping.js";
 import { runLoadTest } from "./loadTest.js";
 import { diagnose } from "./diagnosis.js";
 import { getRecommendations } from "./recommendations.js";
-import type { BufferbloatGrade, NetworkTestResult, RouterInfo, StatusLevel, TestMetrics, TestProgress } from "./types.js";
+import type { BufferbloatGrade, NetworkTestResult, StatusLevel, TestMetrics, TestProgress } from "./types.js";
 
 type ProgressCallback = (progress: TestProgress) => void;
 
@@ -59,11 +59,9 @@ function reportFor(result: Omit<NetworkTestResult, "report">): string {
 }
 
 export async function runNetworkTest(
-  options: { mock?: boolean; routerBrand?: string } = {},
+  options: { routerBrand?: string } = {},
   onProgress: ProgressCallback = () => {}
 ): Promise<NetworkTestResult> {
-  if (options.mock) return runMockTest(options.routerBrand, onProgress);
-
   onProgress({ step: "Detecting router", percent: 8 });
   const router = await detectRouter();
   if (options.routerBrand) {
@@ -125,78 +123,9 @@ export async function runNetworkTest(
     recommendations: getRecommendations(router.detectedBrand, recommendationHints, {
       status: metrics.status,
       connectionType: router.connectionType
-    }),
-    mock: false
+    })
   };
 
-  onProgress({ step: "Complete", percent: 100 });
-  return { ...base, report: reportFor(base) };
-}
-
-async function runMockTest(routerBrand: string | undefined, onProgress: ProgressCallback): Promise<NetworkTestResult> {
-  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-  for (const progress of [
-    { step: "Mock: detecting router", percent: 15 },
-    { step: "Mock: idle latency", percent: 35 },
-    { step: "Mock: download load", percent: 60 },
-    { step: "Mock: upload load", percent: 82 }
-  ]) {
-    onProgress(progress);
-    await wait(250);
-  }
-
-  const makePing = (target: string, samples: number[]) => ({
-    target,
-    sent: samples.length,
-    received: samples.length,
-    packetLossPercent: 0,
-    averageMs: average(samples),
-    minMs: Math.min(...samples),
-    maxMs: Math.max(...samples),
-    jitterMs: average(samples.slice(1).map((sample, index) => Math.abs(sample - samples[index]))),
-    samples
-  });
-  const router: RouterInfo = {
-    gatewayIp: "192.168.1.1",
-    hostname: "router.asus.local",
-    macAddress: "50:46:5D:12:34:56",
-    macVendor: "ASUS",
-    upnpName: "ASUS Gaming Router",
-    connectionType: "ethernet",
-    adapterName: "Ethernet",
-    detectedBrand: routerBrand || "ASUS",
-    confidence: routerBrand ? "manual" : "medium",
-    detectionNotes: ["Mock router profile loaded."]
-  };
-  const downloadPing = makePing("1.1.1.1", [23, 44, 52, 66, 49, 58, 61, 55]);
-  const uploadPing = makePing("1.1.1.1", [24, 82, 118, 145, 132, 126, 138, 121]);
-  const metrics: TestMetrics = {
-    idleGateway: makePing("192.168.1.1", [2, 2, 3, 2, 4, 3, 2, 3]),
-    idleCloudflare: makePing("1.1.1.1", [20, 21, 20, 22, 21, 20, 23, 21]),
-    idleGoogle: makePing("8.8.8.8", [22, 22, 23, 21, 22, 24, 22, 23]),
-    download: { phase: "download", bytesTransferred: 18_000_000, durationMs: 8000, speedMbps: 18, ping: downloadPing, errors: [] },
-    upload: { phase: "upload", bytesTransferred: 5_000_000, durationMs: 8000, speedMbps: 5, ping: uploadPing, errors: [] },
-    idleInternetAverageMs: 21.625,
-    loadedDownloadPingMs: downloadPing.averageMs,
-    loadedUploadPingMs: uploadPing.averageMs,
-    jitterMs: 17.8,
-    packetLossPercent: 0,
-    latencyIncreaseMs: 67,
-    grade: "C",
-    status: "Bad"
-  };
-  const { diagnosis, recommendationHints } = diagnose(metrics);
-  const base = {
-    testedAt: new Date().toISOString(),
-    router,
-    metrics,
-    diagnosis,
-    recommendations: getRecommendations(router.detectedBrand, recommendationHints, {
-      status: metrics.status,
-      connectionType: router.connectionType
-    }),
-    mock: true
-  };
   onProgress({ step: "Complete", percent: 100 });
   return { ...base, report: reportFor(base) };
 }
