@@ -18,7 +18,7 @@ It runs short latency and load checks, compares idle and loaded ping, detects th
 
 ## Screenshots
 
-Add screenshots here once the UI is finalized.
+![RouterBloat Analyzer dashboard](docs/images/routerbloat-analyzer.png)
 
 ## Tech Stack
 
