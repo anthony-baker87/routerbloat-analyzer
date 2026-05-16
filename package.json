@@ -1,0 +1,45 @@
+{
+  "name": "routerbloat-analyzer",
+  "version": "0.1.0",
+  "description": "A Windows-first Electron app for diagnosing gaming latency, bufferbloat, packet loss, jitter, and route issues.",
+  "keywords": [
+    "bufferbloat",
+    "gaming",
+    "latency",
+    "network-diagnostics",
+    "electron",
+    "react",
+    "qos",
+    "sqm"
+  ],
+  "author": "",
+  "license": "MIT",
+  "main": "dist-electron/main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build": "tsc && vite build && tsc -p electron/tsconfig.json && node scripts/copy-preload.cjs",
+    "preview": "vite preview",
+    "start": "electron ."
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "electron": "^33.2.1",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "wait-on": "^8.0.1"
+  }
+}
