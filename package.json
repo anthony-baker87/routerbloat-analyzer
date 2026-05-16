@@ -1,6 +1,6 @@
 {
   "name": "routerbloat-analyzer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Windows-first Electron app for diagnosing gaming latency, bufferbloat, packet loss, jitter, and route issues.",
   "keywords": [
     "bufferbloat",
@@ -54,11 +54,15 @@
       ]
     },
     "nsis": {
+      "artifactName": "RouterBloat-Analyzer-Setup.${ext}",
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "perMachine": false,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
+    },
+    "portable": {
+      "artifactName": "RouterBloat-Analyzer-Portable.${ext}"
     }
   },
   "dependencies": {

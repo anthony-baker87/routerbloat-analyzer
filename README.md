@@ -72,19 +72,15 @@ The packaged installer and portable executable are written to `release/`.
 
 ## Installing From GitHub
 
-Go to the repository's **Releases** page and download the latest Windows installer from **Assets**.
+Download the latest Windows installer directly:
 
-For most users, download:
+[Download RouterBloat Analyzer for Windows](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Setup.exe)
 
-```text
-RouterBloat-Analyzer-Setup-0.1.0.exe
-```
+If you want a portable version that runs without installing:
 
-If you want a portable version that runs without installing, download:
+[Download the portable version](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Portable.exe)
 
-```text
-RouterBloat-Analyzer-0.1.0.exe
-```
+You can also open the repository's **Releases** page and download the latest files from **Assets**.
 
 You can ignore files such as `.blockmap`, `latest.yml`, `builder-debug.yml`, and source code archives unless you are debugging or developing the app.
 
@@ -97,9 +93,10 @@ This repo includes a GitHub Actions workflow that builds the Windows installer a
 ```powershell
 git add .
 git commit -m "Prepare Windows release build"
-git tag v0.1.0
 git push origin main
-git push origin v0.1.0
+
+git tag vX.Y.Z
+git push origin vX.Y.Z
 ```
 
 GitHub Actions will build the app and attach the installer artifacts to the tagged release.
