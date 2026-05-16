@@ -73,7 +73,21 @@ The packaged installer and portable executable are written to `release/`.
 
 ## Installing From GitHub
 
-Go to the repository's **Releases** page and download the latest Windows `.exe` installer.
+Go to the repository's **Releases** page and download the latest Windows installer from **Assets**.
+
+For most users, download:
+
+```text
+RouterBloat-Analyzer-Setup-0.1.0.exe
+```
+
+If you want a portable version that runs without installing, download:
+
+```text
+RouterBloat-Analyzer-0.1.0.exe
+```
+
+You can ignore files such as `.blockmap`, `latest.yml`, `builder-debug.yml`, and source code archives unless you are debugging or developing the app.
 
 Because this app is not code-signed yet, Windows SmartScreen may show a warning the first time you run it. Choose **More info** and **Run anyway** only if you downloaded it from the official repository release.
 
