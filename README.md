@@ -93,9 +93,9 @@ If you want a portable version that runs without installing:
 
 Linux preview builds:
 
-[Download the Linux AppImage](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Linux-x64.AppImage)
+[Download the Linux AppImage](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Linux-x86_64.AppImage)
 
-[Download the Linux DEB package](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Linux-x64.deb)
+[Download the Linux DEB package](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Linux-amd64.deb)
 
 macOS preview builds:
 

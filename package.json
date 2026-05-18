@@ -78,6 +78,7 @@
     },
     "linux": {
       "category": "Network",
+      "maintainer": "RouterBloat Analyzer Maintainers <noreply@github.com>",
       "target": [
         {
           "target": "AppImage",
