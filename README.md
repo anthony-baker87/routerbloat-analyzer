@@ -1,6 +1,6 @@
 # RouterBloat Analyzer
 
-RouterBloat Analyzer is a Windows-first desktop app for gamers who want to understand whether lag is coming from their local network, router, ISP, or a specific game route.
+RouterBloat Analyzer is a desktop app for gamers who want to understand whether lag is coming from their local network, router, ISP, or a specific game route.
 
 It runs short latency and load checks, compares idle and loaded ping, detects the local gateway, and turns the results into plain-English guidance instead of scary false certainty.
 
@@ -28,15 +28,16 @@ It runs short latency and load checks, compares idle and loaded ping, detects th
 - Vite
 - TypeScript
 - Tailwind CSS
-- Node.js `child_process.execFile` for sanitized Windows networking commands
+- Node.js `child_process.execFile` for sanitized networking commands
 
 ## Requirements
 
-- Windows 10 or Windows 11
+- Windows 10 or Windows 11 for full diagnostics support
+- Linux or macOS for packaged preview builds
 - Node.js 20 or newer recommended
 - npm
 
-The MVP is Windows-first and uses commands such as `ipconfig`, `ping`, `arp`, `nslookup`, and PowerShell networking cmdlets. Admin access is not required.
+The diagnostics are currently Windows-first and use commands such as `ipconfig`, `ping`, `arp`, `nslookup`, and PowerShell networking cmdlets. Admin access is not required. Linux and macOS packages are built for distribution testing while native diagnostics support is expanded.
 
 ## Getting Started
 
@@ -58,10 +59,18 @@ Build the app:
 npm run build
 ```
 
-Build a local Windows installer and portable app:
+Build a local package for your current platform:
 
 ```powershell
 npm run dist
+```
+
+Build a specific platform package:
+
+```powershell
+npm run dist:win
+npm run dist:linux
+npm run dist:mac
 ```
 
 Run the built Electron app:
@@ -70,7 +79,7 @@ Run the built Electron app:
 npm start
 ```
 
-The packaged installer and portable executable are written to `release/`.
+Packaged installers and app bundles are written to `release/`.
 
 ## Installing From GitHub
 
@@ -82,6 +91,18 @@ If you want a portable version that runs without installing:
 
 [Download the portable version](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Portable.exe)
 
+Linux preview builds:
+
+[Download the Linux AppImage](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Linux-x64.AppImage)
+
+[Download the Linux DEB package](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-Linux-x64.deb)
+
+macOS preview builds:
+
+[Download macOS for Apple silicon](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-macOS-arm64.dmg)
+
+[Download macOS for Intel](https://github.com/anthony-baker87/routerbloat-analyzer/releases/latest/download/RouterBloat-Analyzer-macOS-x64.dmg)
+
 You can also open the repository's **Releases** page and download the latest files from **Assets**.
 
 You can ignore files such as `.blockmap`, `latest.yml`, `builder-debug.yml`, and source code archives unless you are debugging or developing the app.
@@ -90,18 +111,18 @@ Because this app is not code-signed yet, Windows SmartScreen may show a warning 
 
 ## Publishing A Release
 
-This repo includes a GitHub Actions workflow that builds the Windows installer automatically when you push a version tag.
+This repo includes a GitHub Actions workflow that builds Windows, Linux, and macOS packages automatically when you push a version tag.
 
 ```powershell
 git add .
-git commit -m "Prepare Windows release build"
+git commit -m "Prepare release build"
 git push origin main
 
 git tag vX.Y.Z
 git push origin vX.Y.Z
 ```
 
-GitHub Actions will build the app and attach the installer artifacts to the tagged release.
+GitHub Actions will build the app on Windows, Ubuntu, and macOS runners, then attach the installer artifacts to the tagged release.
 
 ## Using The App
 
